@@ -1,12 +1,10 @@
-import { setupCounter } from "./util";
+import { Board } from "./structures/Board";
+import { Tile } from "./structures/Tile";
 import "./styles/globals.css";
 
-const app = document.querySelector<HTMLDivElement>("#app")!;
+const boardElement = document.querySelector<HTMLDivElement>("#board")!;
 
-const button = document.createElement("button");
+const board = new Board(boardElement);
 
-button.id = "counter";
-
-app.append(button);
-
-setupCounter(button);
+board.randomEmptyCell().tile = new Tile(boardElement);
+board.randomEmptyCell().tile = new Tile(boardElement);
