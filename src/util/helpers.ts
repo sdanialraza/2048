@@ -7,6 +7,13 @@ export function setupEventListener(board: Board) {
   window.addEventListener("keydown", async event => handleInput(board, event), { once: true });
 }
 
+export function handleNewGameButton() {
+  // eslint-disable-next-line no-alert
+  const isSure = confirm("Are you sure you want to start a new game?");
+
+  if (isSure) location.reload();
+}
+
 const directions: Record<string, [(board: Board) => boolean, (board: Board) => Promise<unknown[]>]> = {
   ArrowUp: [canMoveUp, moveUp],
   ArrowDown: [canMoveDown, moveDown],
