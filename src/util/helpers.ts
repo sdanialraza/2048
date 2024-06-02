@@ -9,6 +9,44 @@ export function setupEventListener(board: Board) {
     async event => handleGameplay({ board, direction: event.key.replace("Arrow", "") as MoveDirection, event }),
     { once: true },
   );
+
+  const appElement = document.querySelector<HTMLDivElement>("#app")!;
+
+  appElement.addEventListener("touchstart", handleTouchStart, { once: true });
+  appElement.addEventListener("touchmove", handleTouchMove, { once: true });
+  appElement.addEventListener("touchend", async event => handleTouchEnd(board, event), { once: true });
+}
+
+const touchCoordinates = {
+  startX: 0,
+  startY: 0,
+  endX: 0,
+  endY: 0,
+};
+
+export function handleTouchStart(event: TouchEvent) {
+  touchCoordinates.startX = event.touches[0].clientX;
+  touchCoordinates.startY = event.touches[0].clientY;
+}
+
+export function handleTouchMove(event: TouchEvent) {
+  touchCoordinates.endX = event.touches[0].clientX;
+  touchCoordinates.endY = event.touches[0].clientY;
+}
+
+export async function handleTouchEnd(board: Board, event: TouchEvent) {
+  const deltaX = touchCoordinates.endX - touchCoordinates.startX;
+  const deltaY = touchCoordinates.endY - touchCoordinates.startY;
+
+  let direction: MoveDirection;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    direction = deltaX > 0 ? "Right" : "Left";
+  } else {
+    direction = deltaY > 0 ? "Down" : "Up";
+  }
+
+  await handleGameplay({ board, direction, event });
 }
 
 export type HandleGameplayOptions = {
