@@ -1,40 +1,38 @@
 import type { Board } from "../structures/Board";
 import type { Cell } from "../structures/Cell";
 import { Tile } from "../structures/Tile";
-import { GAME_OVER_MESSAGE } from "./index";
+import { DIRECTIONS, GAME_OVER_MESSAGE, type MoveDirection } from "./index";
 
 export function setupEventListener(board: Board) {
-  window.addEventListener("keydown", async event => handleInput(board, event), { once: true });
+  window.addEventListener(
+    "keydown",
+    async event => handleGameplay({ board, direction: event.key.replace("Arrow", "") as MoveDirection, event }),
+    { once: true },
+  );
 }
 
-export function handleNewGameButton() {
-  // eslint-disable-next-line no-alert
-  const isSure = confirm("Are you sure you want to start a new game?");
-
-  if (isSure) location.reload();
-}
-
-const directions: Record<string, [(board: Board) => boolean, (board: Board) => Promise<unknown[]>]> = {
-  ArrowUp: [canMoveUp, moveUp],
-  ArrowDown: [canMoveDown, moveDown],
-  ArrowLeft: [canMoveLeft, moveLeft],
-  ArrowRight: [canMoveRight, moveRight],
+export type HandleGameplayOptions = {
+  board: Board;
+  direction: MoveDirection;
+  event: Event;
 };
 
-export async function handleInput(board: Board, event: KeyboardEvent) {
-  const direction = directions[event.key];
+export async function handleGameplay({ board, direction, event }: HandleGameplayOptions) {
+  const moveDirection = DIRECTIONS[direction];
 
   if (!direction) {
     setupEventListener(board);
+
     return;
   }
 
   event.preventDefault();
 
-  const [canMove, move] = direction;
+  const [canMove, move] = moveDirection;
 
   if (!canMove(board)) {
     setupEventListener(board);
+
     return;
   }
 
@@ -51,18 +49,28 @@ export async function handleInput(board: Board, event: KeyboardEvent) {
   board.randomEmptyCell().tile = newTile;
 
   if (!canMoveUp(board) && !canMoveDown(board) && !canMoveLeft(board) && !canMoveRight(board)) {
-    await newTile.waitForTransition(true);
-
-    // TODO: Implement a game over screen.
-    // eslint-disable-next-line no-alert
-    const playAgain = confirm(GAME_OVER_MESSAGE);
-
-    if (playAgain) location.reload();
+    await handleGameOver(newTile);
 
     return;
   }
 
   setupEventListener(board);
+}
+
+export async function handleGameOver(tile: Tile) {
+  await tile.waitForTransition(true);
+
+  // eslint-disable-next-line no-alert
+  const playAgain = confirm(GAME_OVER_MESSAGE);
+
+  if (playAgain) location.reload();
+}
+
+export function handleNewGameButton() {
+  // eslint-disable-next-line no-alert
+  const isSure = confirm("Are you sure you want to start a new game?");
+
+  if (isSure) location.reload();
 }
 
 export function canMoveUp(board: Board): boolean {
