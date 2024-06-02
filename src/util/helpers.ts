@@ -56,7 +56,7 @@ export type HandleGameplayOptions = {
 export async function handleGameplay({ board, direction, event }: HandleGameplayOptions) {
   const moveDirection = DIRECTIONS[direction];
 
-  if (!direction) {
+  if (!moveDirection) {
     setupEventListener(board);
 
     return;
