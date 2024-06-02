@@ -10,11 +10,9 @@ export function setupEventListener(board: Board) {
     { once: true },
   );
 
-  const appElement = document.querySelector<HTMLDivElement>("#app")!;
-
-  appElement.addEventListener("touchstart", handleTouchStart, { once: true });
-  appElement.addEventListener("touchmove", handleTouchMove, { once: true });
-  appElement.addEventListener("touchend", async event => handleTouchEnd(board, event), { once: true });
+  board.element.addEventListener("touchstart", handleTouchStart, { once: true });
+  board.element.addEventListener("touchmove", handleTouchMove, { once: true });
+  board.element.addEventListener("touchend", async event => handleTouchEnd(board, event), { once: true });
 }
 
 const touchCoordinates = {
