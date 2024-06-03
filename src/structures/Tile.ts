@@ -22,7 +22,7 @@ export class Tile {
    */
   #y: number;
 
-  public constructor(container: HTMLDivElement, value = Math.random() < 0.5 ? 2 : 4) {
+  public constructor(container: HTMLDivElement, value = Math.random() < 0.9 ? 2 : 4) {
     this.#tile = document.createElement("div");
     this.#value = value;
     this.#x = 0;
