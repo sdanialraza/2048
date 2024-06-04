@@ -28,6 +28,10 @@ export const GAME_OVER_MESSAGE = "Game over!\nPlay again?" as const;
 
 /* eslint-disable id-length */
 export const KEY_TO_DIRECTIONS: Record<string, MoveDirection> = {
+  ArrowUp: "Up",
+  ArrowDown: "Down",
+  ArrowLeft: "Left",
+  ArrowRight: "Right",
   w: "Up",
   s: "Down",
   a: "Left",
