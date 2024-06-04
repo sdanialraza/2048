@@ -13,6 +13,7 @@ html {
 }
 
 body {
+  font-family: sans-serif;
   margin: 0;
   overscroll-behavior: none;
 }
@@ -23,6 +24,31 @@ body {
   flex-direction: column;
   height: 100dvh;
   justify-content: center;
+}
+
+#scores {
+  align-items: center;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+#scores article {
+  align-items: center;
+  background-color: bisque;
+  border-radius: var(--border-radius);
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.25rem 1.25rem;
+}
+
+#scores article span {
+  font-size: 2.25vmin;
+  font-weight: bold;
+  margin: 0;
 }
 
 #board {
@@ -47,7 +73,6 @@ body {
   border-radius: calc(var(--border-radius));
   color: hsl(200, 25%, var(--text-lightness));
   display: flex;
-  font-family: sans-serif;
   font-size: 3.5vmin;
   font-weight: 600;
   height: calc(var(--cell-size));
@@ -76,9 +101,9 @@ body {
   color: black;
   cursor: pointer;
   display: flex;
-  font-size: medium;
+  font-size: 2.25vmin;
   font-weight: bold;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding: 0.5rem 1rem;
 }

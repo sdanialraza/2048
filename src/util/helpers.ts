@@ -74,8 +74,12 @@ export async function handleGameplay({ board, direction, event }: HandleGameplay
 
   await move(board);
 
+  const scoreElement = document.querySelector<HTMLParagraphElement>("#current-score")!;
+
   for (const cell of board.cells) {
-    cell.mergeTiles();
+    const newValue = cell.mergeTiles();
+
+    scoreElement.textContent = String(Number(scoreElement.textContent) + newValue);
   }
 
   const boardElement = document.querySelector<HTMLDivElement>("#board")!;
@@ -85,12 +89,36 @@ export async function handleGameplay({ board, direction, event }: HandleGameplay
   board.randomEmptyCell().tile = newTile;
 
   if (!canMoveUp(board) && !canMoveDown(board) && !canMoveLeft(board) && !canMoveRight(board)) {
+    handleBestScore(Number(scoreElement.textContent));
+
     await handleGameOver(newTile);
 
     return;
   }
 
   setupEventListener(board);
+}
+
+export function handleBestScore(currentScore: number) {
+  const bestScoreElement = document.querySelector<HTMLParagraphElement>("#best-score");
+
+  if (!bestScoreElement) throw new Error("Best score element not found.");
+
+  const currentBestScore = window.localStorage.getItem("best-score");
+
+  if (!currentBestScore) {
+    window.localStorage.setItem("best-score", String(currentScore));
+
+    bestScoreElement.textContent = String(currentScore);
+
+    return;
+  }
+
+  const bestScore = Math.max(currentScore, Number(currentBestScore));
+
+  window.localStorage.setItem("best-score", String(bestScore));
+
+  bestScoreElement.textContent = String(bestScore);
 }
 
 export async function handleGameOver(tile: Tile) {
