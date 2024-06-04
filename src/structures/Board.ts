@@ -15,6 +15,11 @@ export class Board {
    */
   public element: HTMLDivElement;
 
+  /**
+   * Creates a new board.
+   *
+   * @param boardElement - The board element.
+   */
   public constructor(boardElement: HTMLDivElement) {
     this.element = boardElement;
 

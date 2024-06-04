@@ -22,6 +22,12 @@ export class Tile {
    */
   #y: number;
 
+  /**
+   * Creates a new tile.
+   *
+   * @param container - The container to append the tile to.
+   * @param value - The value of the tile.
+   */
   public constructor(container: HTMLDivElement, value = Math.random() < 0.9 ? 2 : 4) {
     this.#tile = document.createElement("div");
     this.#value = value;
@@ -35,6 +41,9 @@ export class Tile {
     this.value = this.#value;
   }
 
+  /**
+   * Removes the tile from the board.
+   */
   public remove() {
     this.#tile.remove();
   }
