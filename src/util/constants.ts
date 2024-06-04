@@ -25,3 +25,16 @@ export const DIRECTIONS: Record<MoveDirection, [(board: Board) => boolean, (boar
 };
 
 export const GAME_OVER_MESSAGE = "Game over!\nPlay again?" as const;
+
+/* eslint-disable id-length */
+export const KEY_TO_DIRECTIONS: Record<string, MoveDirection> = {
+  w: "Up",
+  s: "Down",
+  a: "Left",
+  d: "Right",
+  h: "Left",
+  j: "Down",
+  k: "Up",
+  l: "Right",
+};
+/* eslint-enable id-length */

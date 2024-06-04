@@ -1,12 +1,12 @@
 import type { Board } from "../structures/Board";
 import type { Cell } from "../structures/Cell";
 import { Tile } from "../structures/Tile";
-import { DIRECTIONS, GAME_OVER_MESSAGE, type MoveDirection } from "./index";
+import { DIRECTIONS, GAME_OVER_MESSAGE, KEY_TO_DIRECTIONS, type MoveDirection } from "./index";
 
 export function setupEventListener(board: Board) {
   window.addEventListener(
     "keydown",
-    async event => handleGameplay({ board, direction: event.key.replace("Arrow", "") as MoveDirection, event }),
+    async event => handleGameplay({ board, direction: KEY_TO_DIRECTIONS[event.key], event }),
     { once: true },
   );
 
