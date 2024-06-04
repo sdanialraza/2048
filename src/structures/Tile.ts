@@ -39,6 +39,12 @@ export class Tile {
     this.#tile.remove();
   }
 
+  /**
+   * Waits for the tile to finish transitioning.
+   *
+   * @param animation - Whether or not to wait for an animation to finish.
+   * @returns A promise that resolves when the tile finishes transitioning.
+   */
   public async waitForTransition(animation = false): Promise<unknown> {
     const { promise, resolve } = Promise.withResolvers();
 
@@ -47,10 +53,16 @@ export class Tile {
     return promise;
   }
 
+  /**
+   * The value of the tile.
+   */
   public get value() {
     return this.#value;
   }
 
+  /**
+   * Sets the value of the tile.
+   */
   public set value(value) {
     this.#value = value;
 
@@ -62,19 +74,31 @@ export class Tile {
     this.#tile.style.setProperty("--text-lightness", `${backgroundLightness <= 50 ? 90 : 10}%`);
   }
 
+  /**
+   * The x coordinate of the tile.
+   */
   public get x() {
     return this.#x;
   }
 
+  /**
+   * Sets the x coordinate of the tile.
+   */
   public set x(x) {
     this.#x = x;
     this.#tile.style.setProperty("--x", String(x));
   }
 
+  /**
+   * The y coordinate of the tile.
+   */
   public get y() {
     return this.#y;
   }
 
+  /**
+   * Sets the y coordinate of the tile.
+   */
   public set y(y) {
     this.#y = y;
     this.#tile.style.setProperty("--y", String(y));

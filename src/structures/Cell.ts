@@ -39,6 +39,9 @@ export class Cell {
 
   /**
    * Whether or not the cell can merge with the given tile.
+   *
+   * @param tile - The tile to check.
+   * @returns Whether or not the cell can merge with the given tile.
    */
   public canMerge(tile: Tile): boolean {
     return !this.tile || (!this.mergeTile && this.tile.value === tile.value);
