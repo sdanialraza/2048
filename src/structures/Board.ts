@@ -1,4 +1,4 @@
-import { BOARD_SIZE, CELL_GAP, CELL_SIZE } from "../util";
+import { BOARD_SIZE, CELL_GAP, CELL_SIZE, MOBILE_CELL_SIZE, MOBILE_MEDIA_QUERY } from "../util";
 import { Cell } from "./Cell";
 
 /**
@@ -25,7 +25,9 @@ export class Board {
 
     this.element.style.setProperty("--board-size", String(BOARD_SIZE));
     this.element.style.setProperty("--cell-gap", CELL_GAP);
-    this.element.style.setProperty("--cell-size", CELL_SIZE);
+
+    if (window.matchMedia(MOBILE_MEDIA_QUERY).matches) this.element.style.setProperty("--cell-size", MOBILE_CELL_SIZE);
+    else this.element.style.setProperty("--cell-size", CELL_SIZE);
 
     this.#cells = this.#createCells();
   }
@@ -67,6 +69,7 @@ export class Board {
     return this.#cells.reduce((cellGrid: Cell[][], cell) => {
       cellGrid[cell.x] = cellGrid[cell.x] ?? [];
       cellGrid[cell.x][cell.y] = cell;
+
       return cellGrid;
     }, []);
   }
@@ -78,6 +81,7 @@ export class Board {
     return this.#cells.reduce((cellGrid: Cell[][], cell) => {
       cellGrid[cell.y] = cellGrid[cell.y] ?? [];
       cellGrid[cell.y][cell.x] = cell;
+
       return cellGrid;
     }, []);
   }

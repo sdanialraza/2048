@@ -76,6 +76,7 @@ export class Cell {
    */
   public set mergeTile(mergeTile) {
     this.#mergeTile = mergeTile;
+
     if (this.#mergeTile) {
       this.#mergeTile.x = this.x;
       this.#mergeTile.y = this.y;

@@ -95,6 +95,7 @@ export class Tile {
    */
   public set x(x) {
     this.#x = x;
+
     this.#tile.style.setProperty("--x", String(x));
   }
 
@@ -110,6 +111,7 @@ export class Tile {
    */
   public set y(y) {
     this.#y = y;
+
     this.#tile.style.setProperty("--y", String(y));
   }
 }

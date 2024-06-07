@@ -42,3 +42,7 @@ export const KEY_TO_DIRECTIONS: Record<string, MoveDirection> = {
   l: "Right",
 };
 /* eslint-enable id-length */
+
+export const MOBILE_CELL_SIZE = "15vmin" as const;
+
+export const MOBILE_MEDIA_QUERY = "(max-width: 600px)" as const;
